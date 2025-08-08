@@ -110,10 +110,11 @@ uvicorn serve:app --reload --port 8000
 | **Kiwi** | 한국어 형태소 분석 |
 | **KeyBERT** | BERT 임베딩 기반 키워드 추출 |
 | **requests** | 외부 API 호출 |
-| **SPARQLWrapper** | LOD(SPARQL) 데이터 질의 |
 | **python-dotenv** | 환경 변수 로드 |
 | **tqdm** | 데이터 처리 진행률 표시 |
-| **pytest** | 테스트 실행 |
+| **transformers** | 사전학습 언어모델 로딩 및 임베딩 생성 |
+| **pandas** | 데이터 구조 및 처리 |
+| **scikit-learn** | TF-IDF 등 머신러닝 기반 벡터화 처리 |
 
 
 ## API 스펙
