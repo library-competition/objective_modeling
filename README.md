@@ -1,7 +1,8 @@
 # READING_COMPASS
 
-사용자의 **독서 목적(학습/업무/교양/취미)** 과 **난이도(입문/심화/전문)** 를 반영해 도서를 추천하는 웹 앱입니다.  
+사용자의 **독서 목적**과 **난이도**를 반영해 도서를 추천하는 웹 앱입니다.  
 백엔드(FastAPI)에서 추천 API를 제공하고, `web/`의 정적 페이지에서 API를 호출해 결과를 보여줍니다.
+
 
 
 ## 요구사항
@@ -11,8 +12,10 @@
 - (Windows 권장) PowerShell
 
 
+
 ## 디렉토리 구조
 
+```text
 objective_modeling/
 ├─ serve.py                        # FastAPI 서버(정적 + API)
 ├─ api.py                          # API만 분리 구현
@@ -46,6 +49,7 @@ objective_modeling/
 ├─ 5_result.html                   # 5. 추천 결과
 ├─ style.css                       # 스타일
 └─ main.js                         # 페이지 공통 스크립트
+```
 
 
 ## 추천 알고리즘 개요
@@ -78,19 +82,23 @@ cd objective_modeling
 python -m venv venv           # Windows
 venv\Scripts\activate         # macOS / Linux
 source venv/bin/activate
-
+```
 
 ### 2) 의존성
+```bash
 pip install --upgrade pip
 pip install -r requirements.txt
-
+```
 
 ### 3) 환경 변수
+```bash
 LIBRARY_API_KEY=your_library_api_key
-
+```
 
 ### 4) 서버 실행
+```bash
 uvicorn serve:app --reload --port 8000
+```
 
 
 ## 주요 사용 패키지
@@ -117,6 +125,7 @@ uvicorn serve:app --reload --port 8000
 - level (string, optional)
 
 ### Response 예시
+```json
 {
   "items": [
     {
@@ -129,6 +138,7 @@ uvicorn serve:app --reload --port 8000
     }
   ]
 }
+```
 
 
 ## 기여자(Constributors)
