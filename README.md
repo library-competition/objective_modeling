@@ -1,5 +1,5 @@
 # READING_COMPASS
-
+![preview1](https://github.com/user-attachments/assets/6498b32d-499e-44ea-b1a6-7c3a654170be)  
 사용자의 **독서 목적**과 **난이도**를 반영해 도서를 추천하는 웹 앱입니다.  
 백엔드(FastAPI)에서 추천 API를 제공하고, `web/`의 정적 페이지에서 API를 호출해 결과를 보여줍니다.
 
