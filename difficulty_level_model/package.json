@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "axios": "^1.11.0",
-    "dotenv": "^17.2.1",
-    "keyword-extractor": "^0.0.28",
-    "natural": "^8.1.0"
-  }
-}

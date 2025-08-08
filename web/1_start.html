@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>독서나침반 - 시작</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="start-container center">
+    <div class="logo">
+      <img src="image/logo.png" alt="로고" style="width: 100px; opacity: 0.2;" />
+    </div>
+    <h1 class="title">독서나침반</h1>
+    <p class="subtitle">: 독서 목적에 따른 난이도별 도서 추천 서비스</p>
+    <button class="main-button" id="startBtn">책 추천받기</button>
+  </div>
+  <script src="main.js"></script>
+  <script>
+    document.getElementById('startBtn').addEventListener('click', () => {
+      // 초기화
+      sessionStorage.clear();
+      location.href = '2_keyword.html';
+    });
+  </script>
+</body>
+</html>

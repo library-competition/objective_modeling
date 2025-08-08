@@ -1,0 +1,15 @@
+flask
+keybert
+kiwipiepy
+xmltodict
+requests
+python-dotenv
+scikit-learn
+torch
+konlpy
+pandas
+transformers
+tqdm
+install
+fastapi
+uvicorn

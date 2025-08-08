@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>추천 책 리스트</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="fixed-header">
+      <div class="step-indicator">
+        <div class="step">1</div>
+        <div class="step">2</div>
+        <div class="step">3</div>
+        <div class="step active">4</div>
+      </div>
+      <h2 class="section-title">추천 책 리스트</h2>
+    </div>
+
+    <div id="bookList" class="book-list" style="margin-top: 100px;"></div>
+
+    <button class="main-button" onclick="location.href='2_keyword.html'">다시 추천받기</button>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    const listContainer = document.getElementById('bookList');
+
+    const selectedSubject = sessionStorage.getItem('subject') || "";
+    const selectedPurpose = JSON.parse(sessionStorage.getItem('purpose') || '[]');
+    const selectedLevel = sessionStorage.getItem('level'); // 입문/심화/전문/무관
+
+    if (!selectedSubject) {
+      listContainer.innerHTML = `<p>먼저 주제를 입력해 주세요.</p>`;
+    } else {
+      const params = new URLSearchParams();
+      params.set("keyword", selectedSubject);
+      if (selectedPurpose.length === 0) {
+        params.append("purposes", "교양");
+      } else {
+        selectedPurpose.slice(0, 2).forEach(p => params.append("purposes", p));
+      }
+      if (selectedLevel && selectedLevel !== "무관") {
+        params.set("level", selectedLevel);
+      }
+
+      listContainer.innerHTML = `<p>추천을 불러오는 중...</p>`;
+
+      fetch(`/api/recommend?${params.toString()}`)
+        .then(res => res.json())
+        .then(data => {
+          const items = (data && data.items) ? data.items : [];
+          if (!items.length) {
+            listContainer.innerHTML = `<p>조건에 맞는 추천 도서가 없습니다.</p>`;
+            return;
+          }
+          listContainer.innerHTML = "";
+          items.forEach(book => {
+            const div = document.createElement('div');
+            div.className = 'book-card';
+            div.innerHTML = `
+              <div class="book-info">
+                <h3>${book.title}</h3>
+                <p>${book.authors || ''}</p>
+              </div>
+            `;
+            listContainer.appendChild(div);
+          });
+        })
+        .catch(err => {
+          console.error(err);
+          listContainer.innerHTML = `<p>추천을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>`;
+        });
+    }
+  </script>
+</body>
+</html>

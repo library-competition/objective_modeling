@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>독서 목적 고르기</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="fixed-header">
+      <div class="step-indicator">
+        <div class="step">1</div>
+        <div class="step active">2</div>
+        <div class="step">3</div>
+        <div class="step">4</div>
+      </div>
+      <h2 class="section-title">독서 목적 고르기</h2>
+    </div>
+    <p class="subtext">독서 목적은 최대 2개까지만 고를 수 있어요.</p>
+
+    <div class="grid purpose-grid" style="margin-top: 80px;">
+      <button class="select-btn" data-value="학습">학습</button>
+      <button class="select-btn" data-value="업무">업무</button>
+      <button class="select-btn" data-value="교양">교양</button>
+      <button class="select-btn" data-value="취미">취미</button>
+    </div>
+
+    <div class="custom-purpose">
+      <label>
+        <input type="checkbox" id="customCheckbox" />
+        직접 입력할래요
+      </label>
+      <input type="text" id="customInput" placeholder="예: 자존감 향상" disabled />
+    </div>
+
+    <button class="main-button" id="nextBtn">다음</button>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    const buttons = document.querySelectorAll('.select-btn');
+    const maxSelectable = 2;
+    const customCheckbox = document.getElementById('customCheckbox');
+    const customInput = document.getElementById('customInput');
+    let selectedPurposes = [];
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const value = btn.dataset.value;
+        const isSelected = btn.classList.contains('selected');
+        if (isSelected) {
+          btn.classList.remove('selected');
+          selectedPurposes = selectedPurposes.filter(v => v !== value);
+        } else {
+          if (selectedPurposes.length < maxSelectable) {
+            btn.classList.add('selected');
+            selectedPurposes.push(value);
+          } else {
+            alert('최대 2개까지만 선택할 수 있어요!');
+          }
+        }
+      });
+    });
+
+    customCheckbox.addEventListener('change', () => {
+      customInput.disabled = !customCheckbox.checked;
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      if (customCheckbox.checked && customInput.value.trim()) {
+        // 자유입력은 임시로 '교양' 카테고리에 매핑되도록 백엔드에서 처리됨.
+        selectedPurposes.push("교양");
+      }
+      if (selectedPurposes.length === 0) {
+        alert('목적을 적어도 하나는 선택해주세요.');
+        return;
+      }
+      sessionStorage.setItem('purpose', JSON.stringify(selectedPurposes.slice(0, 2)));
+      location.href = '4_level.html';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>난이도 고르기</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="fixed-header">
+      <div class="step-indicator">
+        <div class="step">1</div>
+        <div class="step">2</div>
+        <div class="step active">3</div>
+        <div class="step">4</div>
+      </div>
+      <h2 class="section-title">난이도 고르기</h2>
+    </div>
+
+    <div class="grid level-grid" style="margin-top: 140px;">
+      <button class="select-btn" data-value="입문">입문</button>
+      <button class="select-btn" data-value="심화">심화</button>
+      <button class="select-btn" data-value="전문">전문</button>
+    </div>
+
+    <div class="level-option">
+      <label>
+        <input type="checkbox" id="noPreference" />
+        난이도는 상관없어요
+      </label>
+    </div>
+
+    <button class="main-button" id="nextBtn">다음</button>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    const buttons = document.querySelectorAll('.select-btn');
+    const checkbox = document.getElementById('noPreference');
+    let selected = null;
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('selected')) {
+          btn.classList.remove('selected');
+          selected = null;
+        } else {
+          buttons.forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selected = btn.dataset.value;
+        }
+      });
+    });
+
+    checkbox.addEventListener('change', () => {
+      if (checkbox.checked) {
+        buttons.forEach(b => b.classList.remove('selected'));
+        selected = null;
+      }
+    });
+
+    document.getElementById('nextBtn').addEventListener('click', () => {
+      const result = checkbox.checked ? '무관' : selected;
+      if (!result) {
+        alert('난이도를 하나 선택하거나 "상관없어요"를 체크해주세요.');
+        return;
+      }
+      sessionStorage.setItem('level', result);
+      location.href = '5_result.html';
+    });
+  </script>
+</body>
+</html>
